@@ -8,87 +8,102 @@ class SliderPage extends StatefulWidget {
 }
 
 class _SliderPageState extends State<SliderPage> {
-  double _valorSlider = 250.0;
+  double _valorSlider = 100;
+  double _valorSliderHeight = 100;
+
   bool _bloquearCheck = false;
-  bool _bloquearSwitch = false;
+  bool _bloquearSwitchWidth = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-         title: Text('Slider'),
-       ),
-       body: Container(
-         padding: EdgeInsets.only(top:50.0),
-         child: Column(
-           children: <Widget>[
-             _crearSlider(),
-             Divider(),
-             _crearCheck(),
-             Divider(),
-             _crarSwitch(),
-             Divider(),
-             _crearImagen(),
-           ],
-         ),
-       ),
+      appBar: AppBar(
+        title: Text('Slider'),
+      ),
+      body: Container(
+        padding: EdgeInsets.only(top: 50.0),
+        child: Column(
+          children: <Widget>[
+            _crearSliderHeight(),
+            Divider(),
+            _crearSliderWidth(),
+            Divider(),
+            _crearCheck(),
+            Divider(),
+            _crearSwitch(),
+            Divider(),
+            _crearImagen(),
+          ],
+        ),
+      ),
     );
   }
 
-  Widget _crearSlider() {
+  Widget _crearSliderWidth() {
     return Slider(
       activeColor: Colors.indigoAccent,
       label: 'Tamaño de imagen',
       //divisions: 20,
       value: _valorSlider,
-      min:0.0,
-      max:500.0,
-      onChanged: (!_bloquearSwitch) ? null : (valor){
-        setState(() {
-                  _valorSlider =  valor;
-                });
-        
-      },
+      min: 0.0,
+      max: 500.0,
+      onChanged: (_bloquearSwitchWidth)
+          ? null
+          : (valor) {
+              setState(() {
+                _valorSlider = valor;
+              });
+            },
+    );
+  }
+
+  Widget _crearSliderHeight() {
+    return Slider(
+      activeColor: Colors.indigoAccent,
+      label: 'Tamaño de imagen',
+      value: _valorSliderHeight,
+      min: 0.0,
+      max: 500.0,
+      onChanged: (_bloquearCheck)
+          ? null
+          : (valor) {
+              setState(() {
+                _valorSliderHeight = valor;
+              });
+            },
     );
   }
 
   Widget _crearCheck() {
-    /* return Checkbox(
-      value: _bloquearCheck,
-      onChanged: (valor){
-        setState(() {
-                  _bloquearCheck =  valor;
-                });
-      },
-    ); */
-
     return CheckboxListTile(
       title: Text('Bloquear Slider'),
-      value:  _bloquearCheck,
-      onChanged: (valor){
+      value: _bloquearCheck,
+      onChanged: (valor) {
         setState(() {
-                  _bloquearCheck = valor;
-                });
+          _bloquearCheck = valor;
+        });
       },
     );
   }
 
   Widget _crearImagen() {
     return Image(
-      image: NetworkImage('https://i.pinimg.com/originals/46/81/c8/4681c895f23dd102ddf8806732efd55d.jpg'),
+      image: NetworkImage(
+          'https://static.wikia.nocookie.net/kill-la-kill/images/f/f0/Op_satsuki.jpg'),
       width: _valorSlider,
-      fit:  BoxFit.contain,
+      height: _valorSliderHeight,
+      fit: BoxFit.fill,
     );
   }
 
-  Widget _crarSwitch() {
+  Widget _crearSwitch() {
     return SwitchListTile(
-      title: Text('Habilitar Slider'),
-      value: _bloquearSwitch,
-      onChanged: (valor){
+      title: Text('Habilitar para Width'),
+      value: _bloquearSwitchWidth,
+      onChanged: (valor) {
         setState(() {
-                  _bloquearSwitch =  valor;
-                });
+          _bloquearSwitchWidth = valor;
+        });
       },
     );
   }
